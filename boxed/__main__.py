@@ -67,7 +67,7 @@ try:
                 )
 
             if game.load_screen(cell_size, width, height, recursive_elements):    # Returns true when game is won
-                break
+                victory.load_screen()
 
         elif action == 1:    # Tutorial
             tutorial.load_screen(Path("tutorial.txt"))
@@ -78,7 +78,6 @@ try:
         elif action == 3:    # Quit Menu
             raise KeyboardInterrupt()
 
-    victory.load_screen()
 
 except KeyboardInterrupt:
     print(boxed.terminal.clear)
