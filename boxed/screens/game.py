@@ -3,14 +3,14 @@ from __future__ import annotations
 import collections.abc
 import random
 import typing
-from threading import Thread
+from pathlib import Path
 
 import more_itertools
-from playsound import playsound
 
 import boxed
 from boxed import grid
 from boxed.border import draw_boundary
+from boxed.utils import play_sound
 
 KEY_OFFSETS = {
     "KEY_DOWN": (0, 1),
@@ -293,11 +293,11 @@ def load_screen(cell_size: int, game_width: int, game_height: int, recursive_ele
                     else:
                         game_tracker = game_tracker.parent
                         game_tracker.game.display(game_tracker.get_depth())
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
 
                 elif key == "h":
                     game_tracker.game.display_generated_path()
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
 
                 elif (
                     key.name
@@ -306,7 +306,7 @@ def load_screen(cell_size: int, game_width: int, game_height: int, recursive_ele
                     game_tracker.game.move_selection(grid.Direction[direction])
 
                 elif key == " ":
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
                     if game_tracker.game.current_selection in game_tracker.game.recursive_cells:
                         child_tracker = game_tracker.child_tracker(
                             game_tracker.game.current_selection

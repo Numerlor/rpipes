@@ -1,12 +1,9 @@
-# To prevent playsound() from blocking, the threading library is required
-# The block parameter instead as it is not cross platform
-from threading import Thread
-
-from playsound import playsound
+from pathlib import Path
 
 import boxed
 from boxed.art import BANNER
 from boxed.border import draw_boundary
+from boxed.utils import play_sound
 
 
 def print_options(selection: int, options: list) -> None:
@@ -95,15 +92,15 @@ def get_selection(options: list) -> int:
                 if key.name == "KEY_UP":
                     selection = (selection - 1) % len(options)
                     print_options(selection, options)
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
 
                 elif key.name == "KEY_DOWN":
                     selection = (selection + 1) % len(options)
                     print_options(selection, options)
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
 
                 elif key.name == "KEY_ENTER":
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
                     return selection
 
 

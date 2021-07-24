@@ -1,9 +1,8 @@
-from threading import Thread
-
-from playsound import playsound
+from pathlib import Path
 
 import boxed
 from boxed.border import draw_boundary
+from boxed.utils import play_sound
 
 
 def print_authors(authors: dict[str, str]) -> None:
@@ -55,7 +54,7 @@ def show_credits(authors: dict[str, str]) -> None:
                     terminal_size = boxed.terminal.width, boxed.terminal.height
 
                 if key == "b":
-                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
+                    play_sound(Path("music/up-down.wav"))
                     break
 
 
