@@ -49,7 +49,5 @@ def load_screen(file: Path) -> None:
                     terminal_size = (boxed.terminal.width, boxed.terminal.height)
 
                 if boxed.terminal.inkey(timeout=0.1) == "b":
-                    Thread(
-                        target=lambda: playsound("music/up-down.wav"), daemon=True
-                    ).start()
+                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
                     return

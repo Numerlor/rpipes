@@ -14,4 +14,4 @@ def get_int_input(prompt: str, x: int, y: int) -> int:
             return int(previous_input)
 
         except ValueError:
-            print(boxed.terminal.move_xy(x, y+1) + "Invalid input!")
+            print(boxed.terminal.move_xy(x, y + 1) + "Invalid input!")

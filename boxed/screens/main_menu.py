@@ -34,9 +34,7 @@ def print_options(selection: int, options: list) -> None:
     print()
 
     for idx, option in enumerate(options):
-        print(
-            boxed.terminal.move_right(2), end=""
-        )  # Move 2 right to not interfere with border
+        print(boxed.terminal.move_right(2), end="")  # Move 2 right to not interfere with border
 
         if option == "Quit" and idx != selection:
             print(boxed.terminal.red + "Quit" + boxed.terminal.normal)
@@ -53,7 +51,7 @@ def print_options(selection: int, options: list) -> None:
     print(
         boxed.terminal.move(boxed.terminal.height - 3, boxed.terminal.width - 29)
         + f"Use {boxed.terminal.white_bold}UP{boxed.terminal.normal} and "
-          f"{boxed.terminal.white_bold}DOWN{boxed.terminal.normal} to navigate"
+        f"{boxed.terminal.white_bold}DOWN{boxed.terminal.normal} to navigate"
     )
 
     print(
@@ -97,21 +95,15 @@ def get_selection(options: list) -> int:
                 if key.name == "KEY_UP":
                     selection = (selection - 1) % len(options)
                     print_options(selection, options)
-                    Thread(
-                        target=lambda: playsound("music/up-down.wav"), daemon=True
-                    ).start()
+                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
 
                 elif key.name == "KEY_DOWN":
                     selection = (selection + 1) % len(options)
                     print_options(selection, options)
-                    Thread(
-                        target=lambda: playsound("music/up-down.wav"), daemon=True
-                    ).start()
+                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
 
                 elif key.name == "KEY_ENTER":
-                    Thread(
-                        target=lambda: playsound("music/up-down.wav"), daemon=True
-                    ).start()
+                    Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
                     return selection
 
 

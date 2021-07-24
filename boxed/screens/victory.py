@@ -11,15 +11,19 @@ def display_game_over() -> None:
         + f"Press {boxed.terminal.white_bold}B{boxed.terminal.normal} to go back"
     )
     print(boxed.terminal.yellow, end="")
-    print(boxed.terminal.move_xy(boxed.terminal.width // 2 - 8, boxed.terminal.height // 2 - 8), end="")
+    print(
+        boxed.terminal.move_xy(boxed.terminal.width // 2 - 8, boxed.terminal.height // 2 - 8),
+        end="",
+    )
 
     trophy_lines = TROPHY.splitlines()
     for row, line in enumerate(trophy_lines):
         print(
             boxed.terminal.move_xy(
                 boxed.terminal.width // 2 - len(trophy_lines[0]) // 2,
-                row+boxed.terminal.height // 2 - len(trophy_lines) // 2,
-            ) + line,
+                row + boxed.terminal.height // 2 - len(trophy_lines) // 2,
+            )
+            + line,
             end="",
         )
     print(boxed.terminal.normal, end="")

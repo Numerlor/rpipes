@@ -30,9 +30,7 @@ class PathGenerator:
     def neighbours(self, cell: grid.Cell) -> collections.abc.Iterable[grid.Cell]:
         """Get all neighbours around `cell`."""
         for x_offset, y_offset in KEY_OFFSETS.values():
-            neighbour_cell = self.grid.cell_at(
-                cell.x_pos + x_offset, cell.y_pos + y_offset
-            )
+            neighbour_cell = self.grid.cell_at(cell.x_pos + x_offset, cell.y_pos + y_offset)
             if neighbour_cell is not None:
                 yield neighbour_cell
 
@@ -47,17 +45,13 @@ class PathGenerator:
         current_cell = start
         while current_cell != end:
             valid_neighbours = tuple(
-                cell
-                for cell in self.neighbours(current_cell)
-                if cell not in visited_cells
+                cell for cell in self.neighbours(current_cell) if cell not in visited_cells
             )
 
             if not valid_neighbours:
                 for current_cell in reversed(path.copy()):
                     valid_neighbours = tuple(
-                        cell
-                        for cell in self.neighbours(current_cell)
-                        if cell not in visited_cells
+                        cell for cell in self.neighbours(current_cell) if cell not in visited_cells
                     )
                     if valid_neighbours:
                         break
@@ -78,8 +72,7 @@ class PathGenerator:
             valid_neighbours = tuple(
                 cell
                 for cell in self.neighbours(current_cell)
-                if cell not in visited_cells
-                and self.grid.cells_connected(cell, current_cell)
+                if cell not in visited_cells and self.grid.cells_connected(cell, current_cell)
             )
             if not valid_neighbours:
                 for current_cell in reversed(path.copy()):
@@ -141,15 +134,13 @@ class Game:
         self.recursive_cells.extend(
             random.sample(
                 list(set(more_itertools.flatten(self.grid.cells)).difference(self.path)),
-                max(self.recursive_child_count - 2, 0)
+                max(self.recursive_child_count - 2, 0),
             )
         )
 
     def move_selection(self, direction: grid.Direction) -> None:
         """Move the current selection in `direction`"""
-        if (
-            target := self.grid.cell_in_direction(self.current_selection, direction)
-        ) is not None:
+        if (target := self.grid.cell_in_direction(self.current_selection, direction)) is not None:
             self.current_selection.render()
             self.current_selection = target
             self.display_selection()
@@ -178,9 +169,7 @@ class Game:
                 cell.render(boxed.terminal.yellow_on_black)
             self.display_selection()
 
-    def display_selection(
-        self, colour: typing.Optional[typing.Callable] = None
-    ) -> None:
+    def display_selection(self, colour: typing.Optional[typing.Callable] = None) -> None:
         """Display the current selection with `colour` or black on white."""
         for cell in self.recursive_cells:
             cell.render(boxed.terminal.yellow)
@@ -216,10 +205,7 @@ class Game:
 
         self.path = self._path_gen.generate_path(self.start, self.end)
         # regenerate the path if it fills up too much space or is too straight
-        while (
-            len(self.path) > cell_count * 0.75
-            or len(self.path) < straight_distance * 1.2
-        ):
+        while len(self.path) > cell_count * 0.75 or len(self.path) < straight_distance * 1.2:
             self.path = self._path_gen.generate_path(self.start, self.end)
 
         for cell1, cell2 in more_itertools.windowed(self.path, 2):
@@ -227,20 +213,12 @@ class Game:
 
         # randomize openings of non path cells
         while self.solved(cache=False):
-            for cell in set(more_itertools.flatten(self.grid.cells)).difference(
-                self.path
-            ):
+            for cell in set(more_itertools.flatten(self.grid.cells)).difference(self.path):
                 if random.random() < 0.80:
-                    for opening_dir in random.sample(
-                        list(grid.Direction), random.randrange(2, 5)
-                    ):
+                    for opening_dir in random.sample(list(grid.Direction), random.randrange(2, 5)):
                         cell.openings.reverse_opening(opening_dir)
                         if (
-                            (
-                                neighbour := self.grid.cell_in_direction(
-                                    cell, opening_dir
-                                )
-                            )
+                            (neighbour := self.grid.cell_in_direction(cell, opening_dir))
                             is not None
                             and neighbour is not self.start
                             and neighbour is not self.end
@@ -290,13 +268,10 @@ def load_screen(cell_size: int, game_width: int, game_height: int, recursive_ele
     """
     game_tracker = GameTracker(
         Game(
-            grid.Grid(
-                grid.GridDimensions(cell_size, game_width, game_height)
-            ),
-            recursive_elements
+            grid.Grid(grid.GridDimensions(cell_size, game_width, game_height)), recursive_elements
         ),
         None,
-        cell_size
+        cell_size,
     )
 
     terminal_size = 0, 0
@@ -326,17 +301,13 @@ def load_screen(cell_size: int, game_width: int, game_height: int, recursive_ele
 
                 elif (
                     key.name
-                    and (direction := key.name.removeprefix("KEY_"))
-                    in grid.Direction.__members__
+                    and (direction := key.name.removeprefix("KEY_")) in grid.Direction.__members__
                 ):
                     game_tracker.game.move_selection(grid.Direction[direction])
 
                 elif key == " ":
                     Thread(target=lambda: playsound("music/up-down.wav"), daemon=True).start()
-                    if (
-                        game_tracker.game.current_selection
-                        in game_tracker.game.recursive_cells
-                    ):
+                    if game_tracker.game.current_selection in game_tracker.game.recursive_cells:
                         child_tracker = game_tracker.child_tracker(
                             game_tracker.game.current_selection
                         )
