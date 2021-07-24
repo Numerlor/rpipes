@@ -24,4 +24,4 @@ def get_int_input(prompt: str, x: int, y: int) -> int:
 
 def play_sound(file_path: Path) -> None:
     """Run sound file behind `file_path` asynchronously."""
-    threading.Thread(target=playsound.playsound, args=(str(file_path),), daemon=True).start()
+    threading.Thread(target=playsound.playsound, args=(file_path,), daemon=True).start()
