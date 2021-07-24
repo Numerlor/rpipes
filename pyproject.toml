@@ -41,5 +41,10 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.isort]
 # Isort configuration
-multi_line_output=5
-known_first_party="boxed"
+multi_line_output = 5
+known_first_party = "boxed"
+profile = "black"
+
+[tool.black]
+line-length = 100
+target-version = ["py39"]
