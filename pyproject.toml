@@ -2,14 +2,7 @@
 name = "rpipes"
 version = "0.0.1"
 description = "A recursive terminal based puzzle game."
-authors = [
-    "Aaris-Kazi <aaris-kazi@users.noreply.github.com>",
-    "Abhishek10351 <abhishek10351@users.noreply.github.com>",
-    "DrokoDomi <drokodomi@users.noreply.github.com>",
-    "Numerlor <numerlor@users.noreply.github.com>",
-    "ShanTen <numerlor@users.noreply.github.com>",
-    "SystematicError <systematicerror@users.noreply.github.com>"
-]
+authors = ["Numerlor <numerlor@users.noreply.github.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
