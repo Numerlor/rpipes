@@ -1,6 +1,6 @@
 import rpipes
-from rpipes.art import TROPHY
 from rpipes.border import draw_boundary
+from rpipes.constants import TROPHY
 
 
 def display_game_over() -> None:

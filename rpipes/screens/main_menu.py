@@ -1,8 +1,8 @@
 from pathlib import Path
 
 import rpipes
-from rpipes.art import BANNER
 from rpipes.border import draw_boundary
+from rpipes.constants import BANNER
 from rpipes.utils import play_sound
 
 
