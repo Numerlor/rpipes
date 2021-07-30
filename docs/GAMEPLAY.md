@@ -18,11 +18,11 @@ _Note: As mentioned in the [main page](https://github.com/SystematicError/code-j
 
 ![Recursive cell prompt](https://media.discordapp.net/attachments/862971677440737340/867073832078409788/unknown.png)
 
-Now for the juicy part, recursive cells. These greatly affect the difficulty of the game and is what truly makes Boxed enjoyable. The mechanics of this special cell is mentioned later on in this page. The recommended value for this is `3`
+Now for the juicy part, recursive cells. These greatly affect the difficulty of the game and is what truly makes rpipes enjoyable. The mechanics of this special cell is mentioned later on in this page. The recommended value for this is `3`
 
 Now that you have entered all the given configs, time to head into the actual game!
 
-![Boxed depth 0](https://media.discordapp.net/attachments/862971677440737340/867074652413493308/unknown.png)
+![rpipes depth 0](https://media.discordapp.net/attachments/862971677440737340/867074652413493308/unknown.png)
 
 Here you can see lots of small boxes, these are called `Cells`. There are 3 types of cells: `Start / End`, `Standard` and `Recursive`. These are represented with the following colors:
 
@@ -53,9 +53,9 @@ On the other hand, if you have any recursive cells then the game gets more inter
 
 ![Recursive cell](https://media.discordapp.net/attachments/862971677440737340/867078136515395635/unknown.png)
 
-In order to rotate these cells, you must first do a mini game of Boxed, inside it!
+In order to rotate these cells, you must first do a mini game of rpipes, inside it!
 
-![Boxed depth 1](https://media.discordapp.net/attachments/862971677440737340/867078484924956692/unknown.png)
+![rpipes depth 1](https://media.discordapp.net/attachments/862971677440737340/867078484924956692/unknown.png)
 
 This is what the inside of a recursive cell looks like, it may or may not contain even more recursive cells inside it; your current depth level can be tracked by the statistic in the bottom.
 

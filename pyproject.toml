@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "Boxed"
+name = "rpipes"
 version = "0.0.1"
 description = "A recursive terminal based puzzle game."
 authors = [
@@ -42,7 +42,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.isort]
 # Isort configuration
 multi_line_output = 5
-known_first_party = "boxed"
+known_first_party = "rpipes"
 profile = "black"
 
 [tool.black]

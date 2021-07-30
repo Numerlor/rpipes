@@ -7,10 +7,10 @@ from pathlib import Path
 
 import more_itertools
 
-import boxed
-from boxed import grid
-from boxed.border import draw_boundary
-from boxed.utils import play_sound
+import rpipes
+from rpipes import grid
+from rpipes.border import draw_boundary
+from rpipes.utils import play_sound
 
 KEY_OFFSETS = {
     "KEY_DOWN": (0, 1),
@@ -109,7 +109,7 @@ class Game:
         self.end = None
         self.recursive_cells = None
         self.current_selection = None
-        self._selection_colour = boxed.terminal.black_on_white
+        self._selection_colour = rpipes.terminal.black_on_white
         self.recursive_child_count = rec_child_count
         self.path_completed = False
 
@@ -148,39 +148,39 @@ class Game:
     def display_generated_path(self) -> None:
         """Display the stored valid path."""
         for cell in self.path[1:]:
-            cell.render(boxed.terminal.black_on_white)
-        self.path[0].render(boxed.terminal.red_on_white)
-        self.path[-1].render(boxed.terminal.red_on_white)
+            cell.render(rpipes.terminal.black_on_white)
+        self.path[0].render(rpipes.terminal.red_on_white)
+        self.path[-1].render(rpipes.terminal.red_on_white)
 
     def display(self, depth: int) -> None:
         """Display the whole grid and highlight exits and selection."""
-        print(boxed.terminal.clear, end="")
+        print(rpipes.terminal.clear, end="")
         draw_boundary()
         print(
-            boxed.terminal.move(boxed.terminal.height - 4, boxed.terminal.width - 26)
+            rpipes.terminal.move(rpipes.terminal.height - 4, rpipes.terminal.width - 26)
             + f"Current depth: {depth}"
-            + boxed.terminal.move(boxed.terminal.height - 3, boxed.terminal.width - 26)
-            + f"Press {boxed.terminal.white_bold}S{boxed.terminal.normal} to stop the game"
+            + rpipes.terminal.move(rpipes.terminal.height - 3, rpipes.terminal.width - 26)
+            + f"Press {rpipes.terminal.white_bold}S{rpipes.terminal.normal} to stop the game"
         )
         if self.grid.print_grid():
-            self.path[0].render(boxed.terminal.red_on_black)
-            self.path[-1].render(boxed.terminal.red_on_black)
+            self.path[0].render(rpipes.terminal.red_on_black)
+            self.path[-1].render(rpipes.terminal.red_on_black)
             for cell in self.recursive_cells:
-                cell.render(boxed.terminal.yellow_on_black)
+                cell.render(rpipes.terminal.yellow_on_black)
             self.display_selection()
 
     def display_selection(self, colour: typing.Optional[typing.Callable] = None) -> None:
         """Display the current selection with `colour` or black on white."""
         for cell in self.recursive_cells:
-            cell.render(boxed.terminal.yellow)
+            cell.render(rpipes.terminal.yellow)
         if self.current_selection is self.start or self.current_selection is self.end:
-            self.current_selection.render(colour or boxed.terminal.bold_red)
+            self.current_selection.render(colour or rpipes.terminal.bold_red)
         elif self.current_selection in self.recursive_cells:
-            self.current_selection.render(boxed.terminal.bright_yellow)
+            self.current_selection.render(rpipes.terminal.bright_yellow)
         else:
-            self.start.render(boxed.terminal.red_on_black)
-            self.end.render(boxed.terminal.red_on_black)
-            self.current_selection.render(colour or boxed.terminal.bold_white)
+            self.start.render(rpipes.terminal.red_on_black)
+            self.end.render(rpipes.terminal.red_on_black)
+            self.current_selection.render(colour or rpipes.terminal.bold_white)
 
     def solved(self, *, cache: bool = True) -> bool:
         """Verify if there's a valid paths between the ends"""
@@ -277,15 +277,15 @@ def load_screen(cell_size: int, game_width: int, game_height: int, recursive_ele
     terminal_size = 0, 0
     game_tracker.game.start_game()
     while True:
-        with boxed.terminal.hidden_cursor():
-            with boxed.terminal.cbreak():
-                key = boxed.terminal.inkey(timeout=0.1)
+        with rpipes.terminal.hidden_cursor():
+            with rpipes.terminal.cbreak():
+                key = rpipes.terminal.inkey(timeout=0.1)
 
                 # Resize border if the terminal size gets changed
-                if (boxed.terminal.width, boxed.terminal.height) != terminal_size:
+                if (rpipes.terminal.width, rpipes.terminal.height) != terminal_size:
 
                     game_tracker.game.display(game_tracker.get_depth())
-                    terminal_size = boxed.terminal.width, boxed.terminal.height
+                    terminal_size = rpipes.terminal.width, rpipes.terminal.height
 
                 if key == "s":
                     if game_tracker.parent is None:

@@ -1,10 +1,10 @@
-# Boxed Documentation
+# rpipes Documentation
 
 ![Starting Menu](https://camo.githubusercontent.com/30cac4582e3095ed0807685dd63bf1e03fb1ad185f749cc262a5346ab9a25b27/68747470733a2f2f6d656469612e646973636f72646170702e6e65742f6174746163686d656e74732f3836323937313637373434303733373334302f3836353235383731323335323638363130302f756e6b6e6f776e2e706e67)
 
 ### What is this?
 
-This is the documentation for Boxed, a terminal game made for the [Python Discord Summer Code Jam 2021](https://pythondiscord.com/events/code-jams/8/). The theme for the project was **Thinking inside the box**. The project is written in Python around the [Blessed](https://pypi.org/project/blessed/) framework.
+This is the documentation for rpipes, a terminal game made for the [Python Discord Summer Code Jam 2021](https://pythondiscord.com/events/code-jams/8/). The theme for the project was **Thinking inside the box**. The project is written in Python around the [Blessed](https://pypi.org/project/blessed/) framework.
 
 ### Demo
 

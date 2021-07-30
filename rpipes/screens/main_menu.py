@@ -1,9 +1,9 @@
 from pathlib import Path
 
-import boxed
-from boxed.art import BANNER
-from boxed.border import draw_boundary
-from boxed.utils import play_sound
+import rpipes
+from rpipes.art import BANNER
+from rpipes.border import draw_boundary
+from rpipes.utils import play_sound
 
 
 def print_options(selection: int, options: list) -> None:
@@ -14,46 +14,48 @@ def print_options(selection: int, options: list) -> None:
         selection (int): A zero indexed integer representing the current selection
         options (list): The list of options to print
     """
-    print(boxed.terminal.clear, end="")
+    print(rpipes.terminal.clear, end="")
     draw_boundary()
 
     print(
-        boxed.terminal.move_y(
-            (boxed.terminal.height - len(BANNER.split("\n")) - len(options) - 1) // 2
+        rpipes.terminal.move_y(
+            (rpipes.terminal.height - len(BANNER.split("\n")) - len(options) - 1) // 2
         ),
         end="",
     )
 
     for line in BANNER.split("\n"):
-        print(boxed.terminal.move_right(2), end="")
+        print(rpipes.terminal.move_right(2), end="")
         print(line)
 
     print()
 
     for idx, option in enumerate(options):
-        print(boxed.terminal.move_right(2), end="")  # Move 2 right to not interfere with border
+        print(rpipes.terminal.move_right(2), end="")  # Move 2 right to not interfere with border
 
         if option == "Quit" and idx != selection:
-            print(boxed.terminal.red + "Quit" + boxed.terminal.normal)
+            print(rpipes.terminal.red + "Quit" + rpipes.terminal.normal)
 
         elif option == "Quit" and idx == selection:
-            print(boxed.terminal.black + boxed.terminal.on_red + "Quit" + boxed.terminal.normal)
+            print(rpipes.terminal.black + rpipes.terminal.on_red + "Quit" + rpipes.terminal.normal)
 
         elif idx == selection:
-            print(boxed.terminal.black + boxed.terminal.on_green + option + boxed.terminal.normal)
+            print(
+                rpipes.terminal.black + rpipes.terminal.on_green + option + rpipes.terminal.normal
+            )
 
         else:
-            print(boxed.terminal.green + option + boxed.terminal.normal)
+            print(rpipes.terminal.green + option + rpipes.terminal.normal)
 
     print(
-        boxed.terminal.move(boxed.terminal.height - 3, boxed.terminal.width - 29)
-        + f"Use {boxed.terminal.white_bold}UP{boxed.terminal.normal} and "
-        f"{boxed.terminal.white_bold}DOWN{boxed.terminal.normal} to navigate"
+        rpipes.terminal.move(rpipes.terminal.height - 3, rpipes.terminal.width - 29)
+        + f"Use {rpipes.terminal.white_bold}UP{rpipes.terminal.normal} and "
+        f"{rpipes.terminal.white_bold}DOWN{rpipes.terminal.normal} to navigate"
     )
 
     print(
-        boxed.terminal.move(boxed.terminal.height - 4, boxed.terminal.width - 23)
-        + f"Press {boxed.terminal.white_bold}ENTER{boxed.terminal.normal} to select"
+        rpipes.terminal.move(rpipes.terminal.height - 4, rpipes.terminal.width - 23)
+        + f"Press {rpipes.terminal.white_bold}ENTER{rpipes.terminal.normal} to select"
     )
 
 
@@ -69,25 +71,25 @@ def get_selection(options: list) -> int:
     """
     selection = 0
 
-    with boxed.terminal.fullscreen() and boxed.terminal.hidden_cursor():
-        terminal_size = boxed.terminal.width, boxed.terminal.height
+    with rpipes.terminal.fullscreen() and rpipes.terminal.hidden_cursor():
+        terminal_size = rpipes.terminal.width, rpipes.terminal.height
 
-        print(boxed.terminal.clear)
+        print(rpipes.terminal.clear)
 
         print_options(selection, options)
         while True:
-            with boxed.terminal.cbreak():  # Without boxed.terminal.cbreak, the terminal cannot take in any input
-                key = boxed.terminal.inkey(timeout=0.1)
+            with rpipes.terminal.cbreak():  # Without rpipes.terminal.cbreak, the terminal cannot take in any input
+                key = rpipes.terminal.inkey(timeout=0.1)
 
                 # Resize border if the terminal size gets changed
-                if (boxed.terminal.width, boxed.terminal.height) != terminal_size:
-                    print(boxed.terminal.clear)
+                if (rpipes.terminal.width, rpipes.terminal.height) != terminal_size:
+                    print(rpipes.terminal.clear)
 
                     # Draw the content first to avoid content overflow
                     print_options(selection, options)
                     draw_boundary()
 
-                    terminal_size = boxed.terminal.width, boxed.terminal.height
+                    terminal_size = rpipes.terminal.width, rpipes.terminal.height
 
                 if key.name == "KEY_UP":
                     selection = (selection - 1) % len(options)

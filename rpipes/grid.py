@@ -4,8 +4,8 @@ import collections.abc
 import enum
 import typing
 
-import boxed
-from boxed.constants import WBorder
+import rpipes
+from rpipes.constants import WBorder
 
 WIDTH_MULTIPLIER = 3
 
@@ -125,9 +125,9 @@ class Cell:
         """Render the cell at its position in the grid."""
         x, y = self.get_cell_start()
         if colour is None:
-            colour = boxed.terminal.white_on_black
+            colour = rpipes.terminal.white_on_black
         for row, line in enumerate(self.generate_cell_lines()):
-            print(boxed.terminal.move_xy(x, y + row), end="")
+            print(rpipes.terminal.move_xy(x, y + row), end="")
             print(colour("".join(line)))
 
     def get_cell_start(self) -> tuple[int, int]:
@@ -285,15 +285,15 @@ class Grid:
         Return True if the grid was displayed, False otherwise.
         """
         print(
-            boxed.terminal.move_xy(boxed.terminal.width // 2 - 18, boxed.terminal.height // 2),
+            rpipes.terminal.move_xy(rpipes.terminal.width // 2 - 18, rpipes.terminal.height // 2),
             end="",
         )
 
-        if self.dimensions.char_width > boxed.terminal.width - 2:
+        if self.dimensions.char_width > rpipes.terminal.width - 2:
             print("Your terminal's width is too small!")
             return False
 
-        elif self.dimensions.char_height > boxed.terminal.height - 2:
+        elif self.dimensions.char_height > rpipes.terminal.height - 2:
             print("Your terminal's height is too small!")
             return False
 
@@ -305,9 +305,9 @@ class Grid:
             ):
                 lines.append(
                     # Move cursor to start of line.
-                    boxed.terminal.move_xy(x, y + line_pos + row * (self.dimensions.cell_size + 1))
+                    rpipes.terminal.move_xy(x, y + line_pos + row * (self.dimensions.cell_size + 1))
                     # After every cell, move one character left to overlap edges.
-                    + boxed.terminal.move_left.join(iterables)
+                    + rpipes.terminal.move_left.join(iterables)
                 )
         print("\n".join(lines))
         return True
@@ -381,6 +381,6 @@ class Grid:
 
 def grid_center_offset_coords(grid_dimensions: GridDimensions) -> tuple[int, int]:
     """Get coordinates of the top left corner of a centered grid with `grid_dimensions`."""
-    x = boxed.terminal.width // 2 - grid_dimensions.char_width // 2
-    y = boxed.terminal.height // 2 - grid_dimensions.char_height // 2
+    x = rpipes.terminal.width // 2 - grid_dimensions.char_width // 2
+    y = rpipes.terminal.height // 2 - grid_dimensions.char_height // 2
     return x, y

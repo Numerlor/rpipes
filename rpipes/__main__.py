@@ -3,11 +3,11 @@ from pathlib import Path
 
 import blessed
 
-import boxed
-from boxed.screens import credits, game, main_menu, tutorial, victory
-from boxed.utils import get_int_input
+import rpipes
+from rpipes.screens import credits, game, main_menu, tutorial, victory
+from rpipes.utils import get_int_input
 
-boxed.terminal = blessed.Terminal()
+rpipes.terminal = blessed.Terminal()
 try:
     import msvcrt
 
@@ -49,15 +49,15 @@ try:
             cell_size = 0
             while cell_size <= 0:
                 cell_size = get_int_input(
-                    "Enter cell size (min 1): ", 10, boxed.terminal.height // 2
+                    "Enter cell size (min 1): ", 10, rpipes.terminal.height // 2
                 )
             width = 0
             while width < 3:
-                width = get_int_input("Enter grid width (min 3): ", 10, boxed.terminal.height // 2)
+                width = get_int_input("Enter grid width (min 3): ", 10, rpipes.terminal.height // 2)
             height = 0
             while height < 3:
                 height = get_int_input(
-                    "Enter grid height (min 3): ", 10, boxed.terminal.height // 2
+                    "Enter grid height (min 3): ", 10, rpipes.terminal.height // 2
                 )
             recursive_elements = float("inf")
             while recursive_elements > width * height // 2:
@@ -65,7 +65,7 @@ try:
                     get_int_input(
                         f"Enter difficulty (number of recursive cells on main puzzle (max {width * height // 2})): ",
                         10,
-                        boxed.terminal.height // 2,
+                        rpipes.terminal.height // 2,
                     ),
                     0,
                 )
@@ -86,4 +86,4 @@ try:
 
 
 except KeyboardInterrupt:
-    print(boxed.terminal.clear)
+    print(rpipes.terminal.clear)

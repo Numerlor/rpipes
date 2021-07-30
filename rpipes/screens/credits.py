@@ -1,30 +1,30 @@
 from pathlib import Path
 
-import boxed
-from boxed.border import draw_boundary
-from boxed.utils import play_sound
+import rpipes
+from rpipes.border import draw_boundary
+from rpipes.utils import play_sound
 
 
 def print_authors(authors: dict[str, str]) -> None:
     """Prints a list of authors with links from a dictionary of authors and links."""
-    print(boxed.terminal.move_y(boxed.terminal.height // 2 - len(authors) // 2), end="")
+    print(rpipes.terminal.move_y(rpipes.terminal.height // 2 - len(authors) // 2), end="")
 
     for author in authors:
-        print(boxed.terminal.move_right(2), end="")
+        print(rpipes.terminal.move_right(2), end="")
         print(
-            boxed.terminal.link(
+            rpipes.terminal.link(
                 authors[author],
-                boxed.terminal.white_bold
+                rpipes.terminal.white_bold
                 + author
-                + boxed.terminal.normal
+                + rpipes.terminal.normal
                 + " - "
                 + authors[author],
             )
         )  # Not all terminals support links so it also prints the url next to the author
 
     print(
-        boxed.terminal.move(boxed.terminal.height - 3, boxed.terminal.width - 20)
-        + f"Press {boxed.terminal.white_bold}B{boxed.terminal.normal} to go back"
+        rpipes.terminal.move(rpipes.terminal.height - 3, rpipes.terminal.width - 20)
+        + f"Press {rpipes.terminal.white_bold}B{rpipes.terminal.normal} to go back"
     )
     draw_boundary()
 
@@ -36,22 +36,22 @@ def show_credits(authors: dict[str, str]) -> None:
     Args:
         authors (dict): A dictionary containing the author and their github page url
     """
-    with boxed.terminal.fullscreen() and boxed.terminal.hidden_cursor():
-        print(boxed.terminal.clear)
+    with rpipes.terminal.fullscreen() and rpipes.terminal.hidden_cursor():
+        print(rpipes.terminal.clear)
         print_authors(authors)
 
-        terminal_size = boxed.terminal.width, boxed.terminal.height
+        terminal_size = rpipes.terminal.width, rpipes.terminal.height
 
         while True:
-            with boxed.terminal.cbreak():
-                key = boxed.terminal.inkey(timeout=0.1)
+            with rpipes.terminal.cbreak():
+                key = rpipes.terminal.inkey(timeout=0.1)
 
                 # Resize border if the terminal size gets changed
-                if (boxed.terminal.width, boxed.terminal.height) != terminal_size:
-                    print(boxed.terminal.clear)
+                if (rpipes.terminal.width, rpipes.terminal.height) != terminal_size:
+                    print(rpipes.terminal.clear)
                     print_authors(authors)
                     draw_boundary()
-                    terminal_size = boxed.terminal.width, boxed.terminal.height
+                    terminal_size = rpipes.terminal.width, rpipes.terminal.height
 
                 if key == "b":
                     play_sound(Path("music/up-down.wav"))
