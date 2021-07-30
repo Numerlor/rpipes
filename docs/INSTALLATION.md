@@ -28,14 +28,6 @@ source venv/bin/activate
 
 _Tip: After you are done using the virtualenv type `deactivate` in your terminal and continue on as usual_
 
-### Installing dependencies
-
-After downloading the project, the next step is to install the dependencies. For a quick and simple installation, open up a terminal in the project directory run:
-
-```
-pip install -r requirements.txt
-```
-
 ### Installing dependencies with Poetry
 
 [Poetry](https://python-poetry.org/) is a elegant dependency manager for python. If you have it installed, you can do the following to install the dependencies:

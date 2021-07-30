@@ -12,10 +12,6 @@ A very in-depth guide to installing, setting up and playing this game is availab
 
 rpipes uses poetry as its dependency manager. For installation, clone this repository and run `poetry install` to get the requried dependencies.
 
-### Installation without poetry
-
-Don't want to use poetry to install the dependencies? No problem! Simply run `pip install -r requirements.txt` instead.
-
 ### Running the program
 
 After installing the required dependencies, run `python -m rpipes` in order to run the application.
